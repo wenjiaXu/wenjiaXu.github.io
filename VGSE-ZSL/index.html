@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-          content="Attribute Prototype Network for Zero-Shot Learning">
+          content="VGSE: Visually-Grounded Semantic Embeddings for Zero-Shot Learning">
     <meta name="author" content="Wenjia Xu,
                                 Yongqin Xian,
 				 Jiuniu Wang,
                                 Zeynep Akata,
 				 Bernt Schiele">
 
-    <title>Attribute Prototype Network for Zero-Shot Learning</title>
+    <title>VGSE: Visually-Grounded Semantic Embeddings for Zero-Shot Learning</title>
     <!-- Bootstrap core CSS -->
     <!--link href="bootstrap.min.css" rel="stylesheet"-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -38,63 +38,52 @@
         
     </p>
     <div class="btn-group" role="group" aria-label="Top menu">
-        <a href="https://arxiv.org/abs/2008.08290" class="btn btn-primary">Paper</a>
+        <a href="https://arxiv.org/abs/2203.10444" class="btn btn-primary">Paper</a>
+        
 <!-- 	<a href="https://arxiv.org/abs/2007.06877" class="btn btn-primary">Paper</a> -->
 
-        <a href="https://github.com/wenjiaXu/VGSE-ZSL" class="btn btn-primary">Code</a>
+        <a href="https://github.com/wenjiaXu/VGSE" class="btn btn-primary">Code</a>
+        
+        <a href="https://www.eml-unitue.de/publication/Visually-Grounded-Semantic-Embeddings-for-Zero-Shot-Learning" class="btn btn-primary">English Blog</a>
+
+        <a href="https://arxiv.org/abs/2203.10444" class="btn btn-primary">中文介绍</a>
     </div>
 </div>
 
 <div class="container">
 	<h2>Introduction</h2>
     <div class="section">
-<!--         <div class="vcontainer">
-            <iframe class='video' src="https://www.youtube.com/embed/H7so-k0YOz4" frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-        </div> -->
+
         <hr>
         <p>
-            From the beginning of zero-shot learning research, visual attributes have been shown to play an important role. 
-	In order to better transfer attribute-based knowledge from known to unknown classes, 
-	we argue that an image representation with integrated attribute localization ability would be beneficial for zero-shot learning.
-	To this end, we propose a novel zero-shot representation learning framework that jointly learns discriminative global and local features using only class-level attributes. 
-	While a visual-semantic embedding layer learns global features, local features are learned through an attribute prototype network that simultaneously regresses and decorrelates attributes from intermediate features.
-         We show that our locality augmented image representations achieve a new state-of-the-art on three zero-shot learning benchmarks. As an additional benefit, 
-	our model points to the visual evidence of the attributes in an image, e.g. for the CUB dataset, confirming the improved attribute localization ability of our image representation.
-	</p>
+            Semantic embeddings aggregated for every class live in a vector space that associates different classes, even when visual examples of these classes are not available. Therefore, they facilitate the knowledge transfer in zero-shot learning (ZSL) and are used as side-information in other computer vision tasks like fashion trend forecast, face recognition and manipulation. Human annotated attributes are widely used semantic embeddings. However, obtaining attributes is often a labor-intensive process. Previous work tackle this problem by using word embeddings for class names, or semantic embeddings from online encyclopedia articles. However, some of these relations may not be visually detectable by machines, resulting in a poor performance in zero-shot learning.  </p>
+
+            <div  align="center"> 
+                <img src="./images/teaser_figure.png" width="90%" alt="teaser figure" align=center />
+        
+            </div>
+            <p>
+                To this end, we propose the Visually-Grounded Semantic Embedding (VGSE) Network to discover semantic embeddings with minimal human supervision (we only use category labels for seen class images). To fully unearth the visual properties shared across different categories, our model discovers semantic embeddings by assigning image patches into various clusters according to their visual similarity. Besides, we further impose class discrimination and semantic relatedness of the semantic embeddings, to benefit their ability in transferring knowledge between classes in ZSL. 
+            </p>
     </div>
+
     
-    <div class="section">
-        <h2>Quantitative Results</h2>
-        <hr>
-        <p>
-            We next show quantitative results for Zero-Shot Learning.
-        </p>
-	<div class="row align-items-center">
-            <div class="col justify-content-center text-center">
-                <img src="images/zsl.png" style="width:100%">
-            </div> 
-        </div>
-    </div>
-	
+    
+
     <div class="section">
         <h2>Qualitative Results</h2>
         <hr>
         <p>
-            We next show qualitative results for localizing attributes and body parts.
+            We show the 2D visualization of image patches in the AWA2, where $10,000$ image patches are presented by projecting their embeddings $a_{nt}$ onto two dimensions with t-SNE. To picture the distribution of the semantic embedding space, we sample several visual clusters~(dots marked in the same color) and the image patches from the cluster center of both seen and unseen categories.
         </p>
-	<div class="row align-items-center">
-            <div class="col justify-content-center text-center">
-                <img src="images/Q1.png" style="width:100%">
-            </div> 
+        <div  align="center"> 
+            <img src="./images/t-SNE-2.png" width="60%" alt="teaser figure" align=center />
         </div>
-	<div class="row align-items-center">
-            <div class="col justify-content-center text-center">
-                <img src="images/Q2.png" style="width:100%">
-            </div> 
-        </div>
-    </div>
+        <p>
+            We observe that samples in the same cluster tend to gather together, indicating that the embeddings provide discriminative information. Besides, images patches in one cluster do convey consistent visual properties, though coming from disjoint categories. For instance, the white fur appears on rabbit, polar bear, and fox are clustered into one group. We further observe that nearly all clusters consist images from more than one categories. It indicates that the clusters we learned contain semantic properties shared across seen classes, and can be transferred to unseen classes. Another interesting observation is that our VGSE clusters discover visual properties that my be neglected by human-annotated attributes, e.g., the cage appear for hamsters and rat. 
+        </p>
+	
+	
 
     <hr>
 
